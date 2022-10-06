@@ -9,9 +9,8 @@ function AuthContextProvider({ children }) {
   const [user, setUser] = useState(null);
 
   const register = async (input) => {
-    let res;
     try {
-      res = await authService.register(input);
+      const res = await authService.register(input);
       setUser(true);
       addAccessToken(res.data.token);
     } catch (err) {
@@ -19,8 +18,14 @@ function AuthContextProvider({ children }) {
     }
   };
 
+  const login = async (input) => {
+    const res = await authService.login(input);
+    setUser(true);
+    addAccessToken(res.data.token);
+  };
+
   return (
-    <AuthContext.Provider value={{ user, register }}>
+    <AuthContext.Provider value={{ user, register, login }}>
       {children}
     </AuthContext.Provider>
   );
