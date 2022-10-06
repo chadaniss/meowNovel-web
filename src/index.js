@@ -6,14 +6,17 @@ import 'react-toastify/dist/ReactToastify.css';
 import './index.css';
 import App from './App';
 import AuthContextProvider from './contexts/AuthContext';
+import LoadingContextProvider from './contexts/LoadingContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
   <BrowserRouter>
-    <AuthContextProvider>
-      <App />
-    </AuthContextProvider>
+    <LoadingContextProvider>
+      <AuthContextProvider>
+        <App />
+      </AuthContextProvider>
+    </LoadingContextProvider>
   </BrowserRouter>
   // </React.StrictMode>
 );

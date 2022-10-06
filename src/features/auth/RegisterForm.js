@@ -2,9 +2,13 @@ import { Modal } from 'flowbite-react';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useAuth } from '../../contexts/AuthContext';
-import validator from 'validator';
+import { useLoading } from '../../contexts/LoadingContext';
+import { userValidate } from '../../validations/userValidate';
 
-function ReegisterForm() {
+function RegisterForm() {
+  const { register } = useAuth();
+  const { startLoading, stopLoading } = useLoading();
+
   const [input, setInput] = useState({
     userName: '',
     email: '',
@@ -13,49 +17,31 @@ function ReegisterForm() {
     password: '',
     confirmPassword: ''
   });
+
   const [show, setShow] = useState(false);
 
   const onClick = (e) => setShow(true);
   const onClose = (e) => setShow(false);
 
-  const { register } = useAuth();
-
   const handleChangeInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
-  const handleSubmitForm = (e) => {
+  const handleSubmitForm = async (e) => {
     e.preventDefault();
 
     try {
-      if (!validator.isAlphanumeric(input.userName + '')) {
-        toast.error('Invalid user name');
-      }
-
-      if (!validator.isEmail(input.email + '')) {
-        toast.error('Invalid email');
-      }
-
-      if (!validator.isAlpha(input.firstName + '')) {
-        toast.error('Invalid first name');
-      }
-
-      if (!validator.isAlpha(input.lastName + '')) {
-        toast.error('Invalid last name');
-      }
-
-      if (!validator.isAlphanumeric(input.password + '')) {
-        toast.error('Invalid password');
-      }
-
-      if (input.password !== input.confirmPassword) {
-        toast.error('Password and confirm password does not match');
-      }
-    } catch (error) {
-      toast.error(error.response?.data.message);
+      userValidate(input);
+      startLoading();
+      await register(input);
+      toast.success('success register');
+      onClose();
+    } catch (err) {
+      toast.error(err.response?.data.message);
+      throw err;
+    } finally {
+      stopLoading();
     }
-
-    register(input);
   };
 
   return (
@@ -162,4 +148,4 @@ function ReegisterForm() {
   );
 }
 
-export default ReegisterForm;
+export default RegisterForm;

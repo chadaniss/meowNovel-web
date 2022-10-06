@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from 'react';
 import { toast } from 'react-toastify';
 import * as authService from '../api/authApi';
+import { addAccessToken } from '../utils/localStorage';
 
 const AuthContext = createContext();
 
@@ -8,13 +9,16 @@ function AuthContextProvider({ children }) {
   const [user, setUser] = useState(null);
 
   const register = async (input) => {
+    let res;
     try {
-      const res = await authService.register(input);
-      // toast.success('success register');
+      res = await authService.register(input);
+      setUser(true);
+      addAccessToken(res.data.token);
     } catch (err) {
-      toast.error(err.response.data.message);
+      toast.error(err.response?.data.message);
     }
   };
+
   return (
     <AuthContext.Provider value={{ user, register }}>
       {children}
