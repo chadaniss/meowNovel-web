@@ -5,13 +5,15 @@ import ProfileIcon from './ProfileIcon';
 
 function Header() {
   return (
-    <Navbar fluid={true} rounded={true}>
-      <div className='bg-red-wine border-gray-200 px-2 sm:px-4 py-2.5 -my-2 rounded w-full flex justify-between'>
-        <Logo />
-        <Menu />
-        <ProfileIcon />
-      </div>
-    </Navbar>
+    <div className='bg-red-wine'>
+      <Navbar fluid={true}>
+        <div className='bg-red-wine border-red-wine sm:px-4 py-2.5 -my-3 -mx-4 w-screen flex justify-between'>
+          <Logo />
+          <Menu />
+          <ProfileIcon />
+        </div>
+      </Navbar>
+    </div>
   );
 }
 

@@ -3,12 +3,12 @@ import Header from '../layouts/Header';
 
 function HomePage() {
   return (
-    <>
+    <div>
       {/* Navbar */}
       <Header />
 
       {/* carousel */}
-      <div className='h-64 sm:h-64 xl:h-80 2xl:h-96 p-3 -mt-3.5 mb-5'>
+      <div className='h-64 sm:h-64 xl:h-80 2xl:h-96 p-3 mb-5 -mt-2 bg-pink-100 flex flex-col'>
         <Carousel>
           <img src='carousel/1.png' alt='...' className='h-full w-auto' />
           <img src='carousel/2.png' alt='...' className='h-full w-auto' />
@@ -180,7 +180,7 @@ function HomePage() {
         </div>
       </Footer>
       {/* End-Footer */}
-    </>
+    </div>
   );
 }
 
