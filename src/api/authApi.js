@@ -6,3 +6,4 @@ export const register = async (input) => {
 export const login = async ({ email, password }) => {
   return await axios.post('/auth/login', { email, password });
 };
+export const getMe = () => axios.get('/auth/me');

@@ -1,24 +1,20 @@
-import { Card, Carousel, Footer } from 'flowbite-react';
-import Header from '../layouts/Header';
+import { Card, Carousel } from 'flowbite-react';
 
 function HomePage() {
   return (
-    <div className='flex flex-col'>
-      {/* Navbar */}
-      <Header />
-
+    <>
       {/* carousel */}
       <div className='h-64 sm:h-64 xl:h-80 2xl:h-96 p-3'>
         <Carousel>
-          <img src='carousel/1.png' alt='...' className='h-full w-auto' />
-          <img src='carousel/2.png' alt='...' className='h-full w-auto' />
-          <img src='carousel/3.png' alt='...' className='h-full w-auto' />
-          <img src='carousel/4.png' alt='...' className='h-full w-auto' />
-          <img src='carousel/5.png' alt='...' className='h-full w-auto' />
+          <img src='carousel/1.png' alt='...' />
+          <img src='carousel/2.png' alt='...' />
+          <img src='carousel/3.png' alt='...' />
+          <img src='carousel/4.png' alt='...' />
+          <img src='carousel/5.png' alt='...' />
         </Carousel>
       </div>
 
-      <div className='bg-pink-100'>
+      <div className='bg-slate-100'>
         {/* Populas */}
         <div className='p-3 px-5 mt-5'>
           <div className='px-10'>
@@ -159,30 +155,7 @@ function HomePage() {
         </div>
         {/* End Card-Romance */}
       </div>
-
-      {/* Footer */}
-      <Footer container={true}>
-        <div className='w-full text-center'>
-          <div className='w-full justify-between sm:flex sm:items-center sm:justify-between'>
-            <Footer.Brand
-              href='https://flowbite.com'
-              src='logo/blackCat.png'
-              alt='Flowbite Logo'
-              name='meowNovel'
-            />
-            <Footer.LinkGroup>
-              <Footer.Link href='#'>About</Footer.Link>
-              <Footer.Link href='#'>Privacy Policy</Footer.Link>
-              <Footer.Link href='#'>Licensing</Footer.Link>
-              <Footer.Link href='#'>Contact</Footer.Link>
-            </Footer.LinkGroup>
-          </div>
-          <Footer.Divider />
-          <Footer.Copyright href='#' by='meowNovel™' year={2022} />
-        </div>
-      </Footer>
-      {/* End-Footer */}
-    </div>
+    </>
   );
 }
 

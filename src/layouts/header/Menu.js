@@ -7,24 +7,24 @@ function Menu() {
   return (
     <div className='flex items-center'>
       <Navbar.Collapse>
-        <MenuItem title='home' active={pathname === '/'} />
+        <MenuItem page='/' title='home' active={pathname === '/'} />
         <MenuItem
-          page='browse'
+          page='/browse'
           title='browse'
           active={pathname === '/browse'}
         />
         <MenuItem
-          page='create'
+          page='/create'
           title='create'
           active={pathname === '/create'}
         />
         <MenuItem
-          page='library'
+          page='/library'
           title='library'
           active={pathname === '/library'}
         />
         <MenuItem
-          page='contact'
+          page='/contact'
           title='contact'
           active={pathname === '/contact'}
         />

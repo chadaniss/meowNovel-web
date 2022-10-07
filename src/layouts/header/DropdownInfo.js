@@ -1,23 +1,28 @@
 import { Avatar, Dropdown } from 'flowbite-react';
+import { useAuth } from '../../contexts/AuthContext';
 
 function DropdownInfo() {
+  const {
+    user: { profileUrl, id, firstName, lastName, email }
+  } = useAuth();
+
   return (
     <Dropdown.Header>
       <div className='text-center mx-5'>
         <div className='flex justify-center mb-3'>
           <Avatar
             alt='User settings'
-            img='https://flowbite.com/docs/images/people/profile-picture-5.jpg'
+            img={profileUrl}
             rounded={true}
             statusPosition='center'
             size='lg'
           />
         </div>
-        <span className='block text-sm'>ID: 9999</span>
-        <span className='block text-sm'>Bonnie Green</span>
-        <span className='block truncate text-sm font-medium'>
-          meow99@gmail.com
+        <span className='block text-sm'>ID: {id}</span>
+        <span className='block text-sm'>
+          {firstName} {lastName}
         </span>
+        <span className='block truncate text-sm font-medium'>{email}</span>
       </div>
     </Dropdown.Header>
   );
