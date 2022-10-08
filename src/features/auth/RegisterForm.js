@@ -18,10 +18,10 @@ function RegisterForm() {
     confirmPassword: ''
   });
 
-  const [show, setShow] = useState(false);
+  const [isShow, setIsShow] = useState(false);
 
-  const onClick = (e) => setShow(true);
-  const onClose = (e) => setShow(false);
+  const onClick = (e) => setIsShow(true);
+  const onClose = (e) => setIsShow(false);
 
   const handleChangeInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -52,7 +52,7 @@ function RegisterForm() {
       >
         Can’t log in? ・Already have an account?
       </button>
-      <Modal show={show} size='lg' popup={true} onClose={onClose}>
+      <Modal show={isShow} size='lg' popup={true} onClose={onClose}>
         <Modal.Header />
         <Modal.Body>
           <div className='space-y-6 px-6 pb-4 sm:pb-6 lg:px-8 xl:pb-8'>

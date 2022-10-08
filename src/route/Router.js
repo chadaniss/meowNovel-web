@@ -6,7 +6,6 @@ import BrowsePage from '../pages/BrowsePage';
 import CreatePage from '../pages/CreatePage';
 import LibraryPage from '../pages/LibraryPage';
 import ContactPage from '../pages/ContactPage';
-import ProfilePage from '../pages/ProfilePage';
 import WritingPage from '../pages/WritingPage';
 import AuthLayout from '../layouts/auth/AuthLayout';
 import HomePage from '../pages/HomePage';
@@ -22,8 +21,8 @@ function Router() {
           <Route path='/create' element={<CreatePage />} />
           <Route path='/library' element={<LibraryPage />} />
           <Route path='/contact' element={<ContactPage />} />
-          <Route path='/profile' element={<ProfilePage />} />
           <Route path='/writing' element={<WritingPage />} />
+          <Route path='*' element={<Navigate to='/' />} />
         </Route>
       ) : (
         <>

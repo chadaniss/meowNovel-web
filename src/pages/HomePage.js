@@ -14,7 +14,7 @@ function HomePage() {
         </Carousel>
       </div>
 
-      <div className='bg-slate-100'>
+      <div>
         {/* Populas */}
         <div className='p-3 px-5 mt-5'>
           <div className='px-10'>
