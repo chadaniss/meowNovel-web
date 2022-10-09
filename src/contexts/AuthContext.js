@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import * as authService from '../api/authApi';
+import * as userService from '../api/userApi';
 import SpinnerComponent from '../components/ui/SpinnerComponent';
 import {
   addAccessToken,
@@ -55,10 +56,15 @@ function AuthContextProvider({ children }) {
     removeAccessToken();
   };
 
+  const updateUser = async (input) => {
+    const res = await userService.updateUser(input);
+    setUser(res.data.user);
+  };
+
   if (initialLoading) return <SpinnerComponent />;
   return (
     <AuthContext.Provider
-      value={{ user, register, login, logout, initialLoading }}
+      value={{ user, register, login, logout, initialLoading, updateUser }}
     >
       {children}
     </AuthContext.Provider>

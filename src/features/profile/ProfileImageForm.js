@@ -1,15 +1,37 @@
 import { Avatar } from 'flowbite-react';
 import { useRef, useState } from 'react';
+import { toast } from 'react-toastify';
 import { useAuth } from '../../contexts/AuthContext';
+import { useLoading } from '../../contexts/LoadingContext';
 
-function ProfileImageForm() {
+function ProfileImageForm({ onSuccess }) {
   const {
-    user: { profileUrl }
+    user: { profileUrl },
+    updateUser
   } = useAuth();
+
+  const { startLoading, stopLoading } = useLoading();
 
   const [fileInput, setFileInput] = useState(null);
 
   const inputEl = useRef();
+
+  const handleClickSave = async () => {
+    try {
+      startLoading();
+      const formData = new FormData();
+      formData.append('profileUrl', fileInput);
+      await updateUser(formData);
+      toast.success('success upload');
+      setFileInput(null);
+      onSuccess();
+    } catch (err) {
+      console.log(err);
+      toast.error(err.response?.data.message);
+    } finally {
+      stopLoading();
+    }
+  };
 
   return (
     <div className='p-5 bg-white flex flex-col items-center h-auto rounded-lg justify-center gap-3 pt-6'>
@@ -43,7 +65,10 @@ function ProfileImageForm() {
           >
             CANCEL
           </button>
-          <button className='font-semibold rounded-md shadow-md hover:bg-red-wine hover:text-white focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-opacity-75 mt-5 py-1 w-28 align-middle block m-auto bg-transparent text-zinc-700 border-zinc-400'>
+          <button
+            className='font-semibold rounded-md shadow-md hover:bg-red-wine hover:text-white focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-opacity-75 mt-5 py-1 w-28 align-middle block m-auto bg-transparent text-zinc-700 border-zinc-400'
+            onClick={handleClickSave}
+          >
             UPLOAD
           </button>
         </div>

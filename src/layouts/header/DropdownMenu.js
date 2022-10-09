@@ -14,7 +14,11 @@ function DropdownMenu() {
   return (
     <div>
       <Dropdown.Item onClick={onClick}>Your profile</Dropdown.Item>
-      <ProfileModal onClose={onClose} isShow={isShow} />
+      <ProfileModal
+        onClose={onClose}
+        isShow={isShow}
+        onSuccess={() => setIsShow(false)}
+      />
 
       <Link to='/writing'>
         <Dropdown.Item>My writing</Dropdown.Item>

@@ -2,7 +2,7 @@ import { Modal } from 'flowbite-react';
 import ProfileImageForm from './ProfileImageForm';
 import ProfileInfo from './ProfileInfo';
 
-function ProfileModal({ isShow, onClose }) {
+function ProfileModal({ isShow, onClose, onSuccess }) {
   return (
     <div>
       <Modal show={isShow} size='3xl' popup={true} onClose={onClose}>
@@ -12,8 +12,8 @@ function ProfileModal({ isShow, onClose }) {
             <h1 className='text-2xl font-medium text-gray-900 dark:text-white text-center'>
               PROFILE INFORMATION
             </h1>
-            <div className='flex justify-center'>
-              <ProfileImageForm />
+            <div className='flex justify-around'>
+              <ProfileImageForm onSuccess={onSuccess} />
               <ProfileInfo />
             </div>
           </div>
