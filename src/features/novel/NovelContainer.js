@@ -1,4 +1,4 @@
-import NovelCard from './NovelCard';
+import NovelList from './NovelList';
 
 function NovelContainer() {
   return (
@@ -11,7 +11,7 @@ function NovelContainer() {
         </div>
       </div>
 
-      <NovelCard />
+      <NovelList />
     </div>
   );
 }

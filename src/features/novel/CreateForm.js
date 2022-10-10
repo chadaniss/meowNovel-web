@@ -1,87 +1,120 @@
 import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { creatNovel } from '../../api/novelApi';
+import { useLoading } from '../../contexts/LoadingContext';
+import { novelValidate } from '../../validations/novelValidate';
 import IconUpload from './IconUpload';
 
 function CreateForm() {
   const [input, setInput] = useState({
     title: '',
-    genre: '',
-    synopsis: '',
-    status: '',
-    bookCoverUrl: ''
+    genre: 'ACTION',
+    synopsis: ''
   });
-  const [image, setImage] = useState(null);
+  const [bookCoverUrl, setBookCoverUrl] = useState(null);
+  const fileEl = useRef();
+
+  const { startLoading, stopLoading } = useLoading();
 
   const handleChangeInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
-  const fileEl = useRef();
+  const navigate = useNavigate();
 
-  // const handleSubmitForm = (e) => {
-  //   e.preventDefault();
-  // };
+  const handleSubmitForm = async (e) => {
+    try {
+      e.preventDefault();
+      const formData = new FormData();
+      novelValidate(input, bookCoverUrl);
+      formData.append('title', input.title);
+      formData.append('genre', input.genre);
+      formData.append('synopsis', input.synopsis);
+      formData.append('bookCoverUrl', bookCoverUrl);
+
+      startLoading();
+      await creatNovel(formData);
+      setInput({
+        title: '',
+        genre: 'ACTION',
+        synopsis: ''
+      });
+      setBookCoverUrl(null);
+      toast.success('Novel Created');
+      navigate('/writing');
+    } catch (err) {
+      console.log(err);
+      toast.error(err.response?.data.message);
+    } finally {
+      stopLoading();
+    }
+  };
 
   return (
-    <div className='bg-[#FFF5F5] p-3 flex gap-7 justify-center py-11'>
-      {/* Book cover Form */}
-      <div className='p-5 px-20 py-10 bg-white flex flex-col items-center h-auto rounded-lg justify-center gap-5 align-middle'>
-        <div class='flex justify-center items-center w-full'>
-          <label
-            for='dropzone-file'
-            class='flex flex-col justify-center items-center w-full h-64 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600'
-          >
-            {image ? (
-              <img
-                src={URL.createObjectURL(image)}
-                alt='post'
-                className='h-96 w-48 object-contain'
+    <form onSubmit={handleSubmitForm}>
+      <div className='bg-[#FFF5F5] p-3 flex gap-7 justify-center py-11'>
+        {/* Book cover Form */}
+        <div className='p-5 px-20 py-10 bg-white flex flex-col items-center h-auto rounded-lg justify-center gap-5 align-middle'>
+          <div class='flex justify-center items-center w-full'>
+            <label
+              for='dropzone-file'
+              class='flex flex-col justify-center items-center w-full h-64 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600'
+            >
+              {bookCoverUrl ? (
+                <img
+                  src={URL.createObjectURL(bookCoverUrl)}
+                  alt='post'
+                  className='h-96 w-48 object-contain'
+                />
+              ) : (
+                <IconUpload />
+              )}
+
+              <input
+                id='dropzone-file'
+                type='file'
+                class='hidden'
+                name='bookCoverUrl'
+                ref={fileEl}
+                onChange={(e) => {
+                  if (e.target.files[0]) {
+                    setBookCoverUrl(e.target.files[0]);
+                  }
+                }}
               />
-            ) : (
-              <IconUpload />
-            )}
+            </label>
+          </div>
 
-            <input
-              id='dropzone-file'
-              type='file'
-              class='hidden'
-              ref={fileEl}
-              onChange={(e) => {
-                if (e.target.files[0]) {
-                  setImage(e.target.files[0]);
-                }
+          {bookCoverUrl ? (
+            <button
+              className='font-semibold rounded-md shadow-md hover:bg-neutral-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-opacity-75 mt-5 py-1 w-28 align-middle block m-auto bg-transparent text-zinc-700 border-zinc-400'
+              type='button'
+              onClick={() => {
+                setBookCoverUrl(null);
+                fileEl.current.value = null;
               }}
-            />
-          </label>
+            >
+              CANCEL
+            </button>
+          ) : (
+            <button
+              className='font-semibold rounded-md shadow-md hover:bg-neutral-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-opacity-75 mt-5 py-1 w-28 align-middle block m-auto bg-transparent text-zinc-700 border-zinc-400'
+              type='button'
+              onClick={() => fileEl.current.click()}
+            >
+              BROWSE
+            </button>
+          )}
         </div>
+        {/* End-Book cover Form */}
 
-        {image ? (
-          <button
-            className='font-semibold rounded-md shadow-md hover:bg-neutral-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-opacity-75 mt-5 py-1 w-28 align-middle block m-auto bg-transparent text-zinc-700 border-zinc-400'
-            onClick={() => {
-              setImage(null);
-              fileEl.current.value = null;
-            }}
-          >
-            CANCEL
-          </button>
-        ) : (
-          <button
-            className='font-semibold rounded-md shadow-md hover:bg-neutral-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-opacity-75 mt-5 py-1 w-28 align-middle block m-auto bg-transparent text-zinc-700 border-zinc-400'
-            onClick={() => fileEl.current.click()}
-          >
-            BROWSE
-          </button>
-        )}
-      </div>
-      {/* End-Book cover Form */}
+        {/* Novel Infomation Form */}
+        <div className='px-10 bg-white p-5 w-3/5 rounded-lg'>
+          <h1 className='text-2xl font-bold pb-2 text-red-wine'>
+            NOVEL INFORMATION
+          </h1>
+          <hr className='border-1 border-stone-400 ' />
 
-      {/* Novel Infomation Form */}
-      <div className='px-10 bg-white p-5 w-3/5 rounded-lg'>
-        <h1 className='text-2xl font-bold pb-2 text-red-wine'>
-          NOVEL INFORMATION
-        </h1>
-        <hr className='border-1 border-stone-400 ' />
-
-        <form>
           <div className='mx-2'>
             <div className='text-left my-3'>
               <label className='text-sm font-semibold'>Book Title</label>
@@ -132,9 +165,9 @@ function CreateForm() {
               CREATE
             </button>
           </div>
-        </form>
+        </div>
       </div>
-    </div>
+    </form>
   );
 }
 
