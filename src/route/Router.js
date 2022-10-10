@@ -9,7 +9,8 @@ import ContactPage from '../pages/ContactPage';
 import WritingPage from '../pages/WritingPage';
 import AuthLayout from '../layouts/auth/AuthLayout';
 import HomePage from '../pages/HomePage';
-import NovelPage from '../pages/NovelPage';
+import EditPage from '../pages/EditPage';
+import ReadNovelPage from '../pages/ReadNovelPage';
 
 function Router() {
   const { user } = useAuth();
@@ -23,7 +24,8 @@ function Router() {
           <Route path='/library' element={<LibraryPage />} />
           <Route path='/contact' element={<ContactPage />} />
           <Route path='/writing' element={<WritingPage />} />
-          <Route path='/novels/:id' element={<NovelPage />} />
+          <Route path='/novels/:id' element={<ReadNovelPage />} />
+          <Route path='/edit/:id' element={<EditPage />} />
           <Route path='*' element={<Navigate to='/' />} />
         </Route>
       ) : (

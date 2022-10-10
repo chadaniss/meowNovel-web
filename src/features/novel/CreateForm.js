@@ -1,8 +1,8 @@
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { creatNovel } from '../../api/novelApi';
 import { useLoading } from '../../contexts/LoadingContext';
+import { useNovel } from '../../contexts/NovelContext';
 import { novelValidate } from '../../validations/novelValidate';
 import IconUpload from './IconUpload';
 
@@ -14,6 +14,8 @@ function CreateForm() {
   });
   const [bookCoverUrl, setBookCoverUrl] = useState(null);
   const fileEl = useRef();
+
+  const { createNovel } = useNovel();
 
   const { startLoading, stopLoading } = useLoading();
 
@@ -33,7 +35,7 @@ function CreateForm() {
       formData.append('bookCoverUrl', bookCoverUrl);
 
       startLoading();
-      await creatNovel(formData);
+      await createNovel(formData);
       setInput({
         title: '',
         genre: 'ACTION',
@@ -55,10 +57,10 @@ function CreateForm() {
       <div className='bg-[#FFF5F5] p-3 flex gap-7 justify-center py-11'>
         {/* Book cover Form */}
         <div className='p-5 px-20 py-10 bg-white flex flex-col items-center h-auto rounded-lg justify-center gap-5 align-middle'>
-          <div class='flex justify-center items-center w-full'>
+          <div className='flex justify-center items-center w-full'>
             <label
-              for='dropzone-file'
-              class='flex flex-col justify-center items-center w-full h-64 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600'
+              htmlFor='dropzone-file'
+              className='flex flex-col justify-center items-center w-full h-64 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600'
             >
               {bookCoverUrl ? (
                 <img
@@ -73,7 +75,7 @@ function CreateForm() {
               <input
                 id='dropzone-file'
                 type='file'
-                class='hidden'
+                className='hidden'
                 name='bookCoverUrl'
                 ref={fileEl}
                 onChange={(e) => {
@@ -129,7 +131,7 @@ function CreateForm() {
               />
             </div>
 
-            <label for='genre' className='text-sm font-semibold'>
+            <label htmlFor='genre' className='text-sm font-semibold'>
               Genre
             </label>
             <br />
