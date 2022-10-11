@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { timeSince } from '../utils/dateformat';
 import * as novelService from '../api/novelApi';
 import { useNovel } from '../contexts/NovelContext';
@@ -64,6 +64,14 @@ function EditPage() {
     fetchNovel();
   }, [image]);
 
+  const navigate = useNavigate();
+
+  const handleClickDelete = async (e) => {
+    await novelService.deleteNovel(+params.id);
+    fetchNovel();
+    navigate('/writing');
+  };
+
   return (
     <div className='py-3'>
       <div className='flex justify-evenly py-20'>
@@ -111,6 +119,7 @@ function EditPage() {
         <button
           className='font-semibold rounded-md shadow-md hover:bg-red-wine hover:text-white focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-opacity-75 mt-5 py-1 w-28 align-middle block m-auto bg-transparent text-zinc-700 border-zinc-400'
           type='button'
+          onClick={handleClickDelete}
         >
           DELETE
         </button>
