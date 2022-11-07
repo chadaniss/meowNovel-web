@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 
 function MyNovel({
-  novel: { id, title, synopsis, bookCoverUrl, updatedAt, User }
+  myNovel: { id, title, synopsis, bookCoverUrl, updatedAt, User }
 }) {
-  const userName = User.userName;
+  // const userName = User.userName;
   const navigate = useNavigate();
   const handleClick = () => {
     navigate(
@@ -22,7 +22,7 @@ function MyNovel({
         />
         <div className='p-6 flex flex-col justify-start'>
           <h5 className='text-gray-900 text-xl font-medium mb-2'>{title}</h5>
-          <p className='text-gray-700 text-base mb-4'>{userName}</p>
+          {/* <p className='text-gray-700 text-base mb-4'>{userName}</p> */}
           <p className='text-gray-600 text-xs'>{synopsis}</p>
         </div>
       </div>

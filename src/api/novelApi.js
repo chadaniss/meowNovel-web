@@ -5,7 +5,7 @@ export const createNovel = (input) => axios.post('/novels', input);
 export const getNovels = (id, find) =>
   axios.get(`/users/${id}/novels${find ? '?find=' + find : ''}`);
 
-export const getMyNovels = (id) => axios.get(`/users/${id}/novels`);
+export const getMyNovels = () => axios.get(`/novels/mynovels`);
 
 export const updateNovel = (novelId, input) =>
   axios.put(`/novels/edit/${novelId}`, input);

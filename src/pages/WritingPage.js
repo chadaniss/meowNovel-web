@@ -1,26 +1,29 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { getMyNovels } from '../api/novelApi';
 import { useAuth } from '../contexts/AuthContext';
 import { useNovel } from '../contexts/NovelContext';
 import MyNovel from '../features/novel/MyNovel';
 
 function WritingPage() {
-  const { getMyNovels, novels, setNovels } = useNovel();
-  // const [novels, setNovels] = useState([]);
+  const { novels } = useNovel();
+  const [myNovels, setMyNovels] = useState([]);
 
   const { user } = useAuth();
+  // console.log('user', user);
 
-  const fetchNovels = async () => {
+  const fetchMyNovels = async () => {
     try {
-      const res = await getMyNovels(user.id);
-      setNovels(res.data.novels);
+      const res = await getMyNovels();
+      console.log('res.data', res.data);
+      setMyNovels(res?.data?.novels);
     } catch (err) {
       console.log(err);
     }
   };
-
+  console.log('myNovels', myNovels);
   useEffect(() => {
-    fetchNovels();
+    fetchMyNovels();
   }, []);
 
   return (
@@ -33,8 +36,8 @@ function WritingPage() {
         </div>
       </div>
       <div className='p-3 pl-20 flex flex-wrap gap-6'>
-        {novels?.map((item) => (
-          <MyNovel key={item.id} novel={item} />
+        {myNovels?.map?.((item) => (
+          <MyNovel key={item.id} myNovel={item} />
         ))}
       </div>
     </div>
