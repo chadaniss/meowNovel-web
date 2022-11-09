@@ -38,9 +38,6 @@ function EditPage() {
       console.log(err);
     }
   };
-  // useEffect(() => {
-  //   fetchEditNovel();
-  // }, []);
 
   const handleUpload = async (e) => {
     try {

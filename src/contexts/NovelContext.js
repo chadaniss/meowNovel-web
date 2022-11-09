@@ -10,10 +10,6 @@ const NovelContext = createContext();
 function NovelContextProvider({ children }) {
   const [novels, setNovels] = useState([]);
   const [initialLoading, setInitialLoading] = useState(true);
-  const [updateNovel, setUpdateNovel] = useState({
-    title: '',
-    sypnosis: ''
-  });
   const { user } = useAuth();
 
   const fetchNovel = async () => {
@@ -31,12 +27,20 @@ function NovelContextProvider({ children }) {
   }, []);
 
   const createNovel = async (input) => {
-    const res = await novelService.createNovel(input);
-    setNovels([res.data.novel, ...novels]);
+    try {
+      const res = await novelService.createNovel(input);
+      setNovels([res.data.novel, ...novels]);
+    } catch (err) {
+      toast.error(err.response?.data.message);
+    } finally {
+      setInitialLoading(false);
+    }
   };
 
   const getMyNovels = async () => {
-    return await novelService.getMyNovels(user.id);
+    try {
+      const res = await novelService.getMyNovels(user.id);
+    } catch (err) {}
   };
 
   if (initialLoading) return <SpinnerComponent />;
@@ -47,8 +51,6 @@ function NovelContextProvider({ children }) {
         initialLoading,
         createNovel,
         getMyNovels,
-        updateNovel,
-        setUpdateNovel,
         fetchNovel
       }}
     >

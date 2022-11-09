@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 function MyNovel({
-  novel: { id, title, synopsis, bookCoverUrl, updatedAt, User }
+  myNovel: { id, title, synopsis, bookCoverUrl, updatedAt, User }
 }) {
   const userName = User.userName;
   const navigate = useNavigate();

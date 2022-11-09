@@ -9,9 +9,9 @@ function Menu() {
       <Navbar.Collapse>
         <MenuItem page='/' title='home' active={pathname === '/'} />
         <MenuItem
-          page='/browse'
+          page='/action'
           title='browse'
-          active={pathname === '/browse'}
+          active={pathname === '/action'}
         />
         <MenuItem
           page='/create'
