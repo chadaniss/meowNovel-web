@@ -6,7 +6,7 @@ export default function NavBrowse() {
   const { pathname } = useLocation();
 
   return (
-    <div className='min-h-100 bg-[#FFF5F5] drop-shadow-lg py-3 flex pl-10'>
+    <div className='min-h-100 bg-[#FFF5F5] drop-shadow-lg py-4 flex pl-16'>
       <Navbar>
         <div className='min-h-100 bg-[#FFF5F5] border-[#FFF5F5] flex justify-between -mx-5 -my-5'>
           <Navbar.Collapse>

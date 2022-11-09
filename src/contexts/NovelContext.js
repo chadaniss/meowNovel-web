@@ -14,7 +14,7 @@ function NovelContextProvider({ children }) {
 
   const fetchNovel = async () => {
     try {
-      const res = await novelService.getNovels(user.id, QUERY_NOVEL_FIND_ALL);
+      const res = await novelService.getNovels(QUERY_NOVEL_FIND_ALL);
       setNovels(res.data.novels);
     } catch (err) {
       toast.error(err.response?.data.message);
@@ -39,8 +39,10 @@ function NovelContextProvider({ children }) {
 
   const getMyNovels = async () => {
     try {
-      const res = await novelService.getMyNovels(user.id);
-    } catch (err) {}
+      return await novelService.getMyNovels(user.id);
+    } catch (err) {
+      toast.error(err.response?.data.message);
+    }
   };
 
   if (initialLoading) return <SpinnerComponent />;

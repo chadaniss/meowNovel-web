@@ -6,10 +6,7 @@ function MyNovel({
   const userName = User.userName;
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate(
-      `/edit/${id}`
-      // state: { id, title, synopsis, bookCoverUrl, updatedAt, User }
-    );
+    navigate(`/edit/${id}`);
   };
 
   return (

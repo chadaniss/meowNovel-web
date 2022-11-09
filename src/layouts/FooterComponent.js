@@ -1,5 +1,6 @@
 import { Footer } from 'flowbite-react';
 import React from 'react';
+import blackCatLogo from '../asset/logo/blackCat.png';
 
 function FooterComponent() {
   return (
@@ -8,9 +9,9 @@ function FooterComponent() {
         <div className='w-full text-center'>
           <div className='w-full justify-between sm:flex sm:items-center sm:justify-between'>
             <Footer.Brand
-              href='https://flowbite.com'
-              src='logo/blackCat.png'
-              alt='Flowbite Logo'
+              href='/'
+              src={blackCatLogo}
+              alt='catLogo'
               name='meowNovel'
             />
             <Footer.LinkGroup>

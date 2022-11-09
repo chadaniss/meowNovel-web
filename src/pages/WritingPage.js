@@ -1,27 +1,20 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { getMyNovels } from '../api/novelApi';
-import { useAuth } from '../contexts/AuthContext';
-import { useNovel } from '../contexts/NovelContext';
 import MyNovel from '../features/novel/MyNovel';
 
 function WritingPage() {
-  const { novels } = useNovel();
   const [myNovels, setMyNovels] = useState([]);
-
-  const { user } = useAuth();
-  // console.log('user', user);
 
   const fetchMyNovels = async () => {
     try {
       const res = await getMyNovels();
-      console.log('res.data', res.data);
+      // console.log('res.data', res.data);
       setMyNovels(res?.data?.novels);
     } catch (err) {
       console.log(err);
     }
   };
-  console.log('myNovels', myNovels);
+  // console.log('myNovels', myNovels);
   useEffect(() => {
     fetchMyNovels();
   }, []);

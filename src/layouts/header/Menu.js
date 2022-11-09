@@ -11,7 +11,14 @@ function Menu() {
         <MenuItem
           page='/action'
           title='browse'
-          active={pathname === '/action'}
+          active={
+            pathname === '/action' ||
+            pathname === '/comedy' ||
+            pathname === '/drama' ||
+            pathname === '/fantasy' ||
+            pathname === '/romance' ||
+            pathname === '/thriller'
+          }
         />
         <MenuItem
           page='/create'

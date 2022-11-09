@@ -1,15 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { timeSince } from '../utils/dateformat';
 import * as novelService from '../api/novelApi';
 import { useNovel } from '../contexts/NovelContext';
 import { toast } from 'react-toastify';
+import { useLoading } from '../contexts/LoadingContext';
 
 function EditPage() {
-  const { fetchNovel, novels } = useNovel();
-  // const {
-  //   state: { id, title, synopsis, bookCoverUrl, updatedAt, User }
-  // } = useLocation();
+  const { fetchNovel } = useNovel();
 
   const params = useParams();
   console.log('params', params);
@@ -19,13 +17,22 @@ function EditPage() {
 
   const inputEl = useRef();
 
+  const { startLoading, stopLoading } = useLoading();
+
   const handleClickUpload = () => {
     inputEl.current.click();
   };
 
   const HandleClickSave = async () => {
-    await novelService.updateNovel(+params.id, updateNovel);
-    fetchNovel();
+    try {
+      startLoading();
+      await novelService.updateNovel(+params.id, updateNovel);
+      fetchNovel();
+    } catch (err) {
+      console.log(err);
+    } finally {
+      stopLoading();
+    }
   };
 
   const fetchEditNovel = async () => {
@@ -64,9 +71,16 @@ function EditPage() {
   const navigate = useNavigate();
 
   const handleClickDelete = async (e) => {
-    await novelService.deleteNovel(+params.id);
-    fetchNovel();
-    navigate('/writing');
+    try {
+      startLoading();
+      await novelService.deleteNovel(+params.id);
+      fetchNovel();
+      navigate('/writing');
+    } catch (err) {
+      console.log(err);
+    } finally {
+      stopLoading();
+    }
   };
 
   return (
