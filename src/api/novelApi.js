@@ -18,4 +18,5 @@ export const updateBookCover = (novelId, image) =>
 export const deleteNovel = (novelId) =>
   axios.delete(`/novels/delete/${novelId}`);
 
-export const getCurrentNovel = (novelId) => axios.get(`/novels/${novelId}`);
+export const getCurrentNovel = (novelId) =>
+  axios.get(`/novels/current/${novelId}`);

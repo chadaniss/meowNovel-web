@@ -10,7 +10,6 @@ function EditPage() {
   const { fetchNovel } = useNovel();
 
   const params = useParams();
-  console.log('params', params);
 
   const [updateNovel, setUpdateNovel] = useState({});
   const [image, setImage] = useState(null);
@@ -38,7 +37,6 @@ function EditPage() {
   const fetchEditNovel = async () => {
     try {
       const res = await novelService.getEditNovel(+params.id);
-      console.log('res.data', res.data);
       setUpdateNovel(res.data.novel);
     } catch (err) {
       toast.error(err.response?.data.message);
