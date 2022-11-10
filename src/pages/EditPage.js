@@ -5,6 +5,7 @@ import * as novelService from '../api/novelApi';
 import { useNovel } from '../contexts/NovelContext';
 import { toast } from 'react-toastify';
 import { useLoading } from '../contexts/LoadingContext';
+import ChapterList from '../components/chapter/ChapterList';
 
 function EditPage() {
   const { fetchNovel } = useNovel();
@@ -22,7 +23,8 @@ function EditPage() {
     inputEl.current.click();
   };
 
-  const HandleClickSave = async () => {
+  const handleClickSave = async (e) => {
+    e.preventDefault();
     try {
       startLoading();
       await novelService.updateNovel(+params.id, updateNovel);
@@ -51,14 +53,12 @@ function EditPage() {
       console.log(err);
     }
   };
-  console.log('image', image);
 
   useEffect(() => {
     const formData = new FormData();
     formData.append('image', image);
     const run = async () => {
       const res = await novelService.updateBookCover(+params.id, formData);
-      console.log('res.data', res.data);
       setImage(res.data.novel);
     };
     run();
@@ -69,6 +69,7 @@ function EditPage() {
   const navigate = useNavigate();
 
   const handleClickDelete = async (e) => {
+    e.preventDefault();
     try {
       startLoading();
       await novelService.deleteNovel(+params.id);
@@ -101,7 +102,7 @@ function EditPage() {
           />
         </div>
         <div className='flex flex-col md:flex-row md:max-w-xl rounded-lg bg-white shadow-lg'>
-          <div className='p-6 flex flex-col justify-start'>
+          <div className='p-6 w-[800px]  h-[300px] flex flex-col justify-start'>
             <input
               className='px-5 pb-2 font-bold text-2xl border-b-2 border-gray-300'
               value={updateNovel.title}
@@ -111,7 +112,7 @@ function EditPage() {
             />
 
             <textarea
-              className='text-gray-700 text-base mb-4 h-40'
+              className='text-gray-700 text-base mb-4 h-full resize-none'
               value={updateNovel.synopsis}
               onChange={(e) =>
                 setUpdateNovel({ ...updateNovel, synopsis: e.target.value })
@@ -123,22 +124,22 @@ function EditPage() {
           </div>
         </div>
       </div>
-
-      <div>
+      <div className='flex justify-center gap-7'>
         <button
-          className='font-semibold rounded-md shadow-md hover:bg-red-wine hover:text-white focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-opacity-75 mt-5 py-1 w-28 align-middle block m-auto bg-transparent text-zinc-700 border-zinc-400'
+          className='font-semibold rounded-md shadow-md hover:bg-red-wine hover:text-white focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-opacity-75 py-1 w-28 align-middle block bg-transparent text-zinc-700 border-zinc-400'
           type='button'
           onClick={handleClickDelete}
         >
           DELETE
         </button>
         <button
-          className='font-semibold rounded-md shadow-md bg-pink-300 hover:bg-red-wine hover:text-white focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-opacity-75 mt-5 py-1 w-28 align-middle block m-auto bg-transparent text-zinc-700 border-zinc-400'
-          onClick={HandleClickSave}
+          className='font-semibold rounded-md shadow-md bg-pink-300 hover:bg-red-wine hover:text-white focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-opacity-75 py-1 w-28 align-middle block bg-transparent text-zinc-700 border-zinc-400'
+          onClick={handleClickSave}
         >
           SAVE
         </button>
       </div>
+      <ChapterList updateNovel={updateNovel} />
     </div>
   );
 }

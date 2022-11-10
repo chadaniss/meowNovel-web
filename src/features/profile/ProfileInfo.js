@@ -5,7 +5,23 @@ function ProfileInfo() {
     user: { userName, email, firstName, lastName }
   } = useAuth();
 
-  const handleChangeInput = (e) => {};
+  // const initialUserInfo = {
+  //   firstName: '',
+  //   lastName: '',
+  //   email: '',
+  //   gender: '',
+  //   birthDate: '',
+  //   occupation: '',
+  //   profileImage: '',
+  //   aboutMe: ''
+  //   // interestLog: ''
+  // };
+
+  // const [userInfo, setUserInfo] = useState(initialUserInfo);
+
+  const handleChangeInput = (e) => {
+    // setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
+  };
 
   const handleSubmitForm = async (e) => {
     e.preventDefault();

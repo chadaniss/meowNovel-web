@@ -2,12 +2,11 @@ import { useState } from 'react';
 import { timeSince } from '../../utils/dateformat';
 import ChapterModal from './ChapterModal';
 
-function ChapterCard({ chapter }) {
+function ChapterCard({ chapter, updateNovel }) {
   const [isShow, setIsShow] = useState(false);
 
   const onClick = (e) => setIsShow(true);
   const onClose = (e) => setIsShow(false);
-
   return (
     <>
       <div
@@ -17,7 +16,12 @@ function ChapterCard({ chapter }) {
         <div>{chapter.title}</div>
         <div>{`Last updated ${timeSince(chapter.updatedAt)}`}</div>
       </div>
-      <ChapterModal isShow={isShow} onClose={onClose} chapter={chapter} />
+      <ChapterModal
+        isShow={isShow}
+        onClose={onClose}
+        chapter={chapter}
+        updateNovel={updateNovel}
+      />
     </>
   );
 }

@@ -2,10 +2,12 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useAuth } from '../../contexts/AuthContext';
 import { useLoading } from '../../contexts/LoadingContext';
+import { useNovel } from '../../contexts/NovelContext';
 
 function LoginForm() {
   const { login } = useAuth();
   const { startLoading, stopLoading } = useLoading();
+  const { fetchNovel } = useNovel();
 
   const [input, setInput] = useState({
     email: '',
@@ -20,6 +22,7 @@ function LoginForm() {
     try {
       startLoading();
       await login(input);
+      fetchNovel();
       toast.success('success login');
     } catch (err) {
       toast.error(err.response.data.message);
