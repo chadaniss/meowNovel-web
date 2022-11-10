@@ -8,7 +8,7 @@ const ChapterContext = createContext();
 
 function ChapterContextProvider({ children }) {
   const [chapters, setChapters] = useState([]);
-  const [initialLoading, setInitialLoading] = useState(true);
+  const [initialLoading, setInitialLoading] = useState(false);
 
   const fetchChapter = async (novelId) => {
     try {
@@ -16,19 +16,21 @@ function ChapterContextProvider({ children }) {
       console.log('res.data', res.data);
       setChapters(res.data.chapters);
     } catch (err) {
-      toast.error(err.response?.data.message);
+      // toast.error(err.response?.data.message);
+      console.log(err);
     } finally {
       setInitialLoading(false);
     }
   };
-  useEffect(() => {
-    fetchChapter();
-  }, []);
+  // useEffect(() => {
+  //   fetchChapter();
+  // }, []);
 
   const createChapter = async (novelId, input) => {
     try {
       const res = await chapterService.createChapter(novelId, input);
-      setChapters([res.data.chapter, ...chapters]);
+      console.log(res.data);
+      setChapters(res.data.chapters);
     } catch (err) {
       toast.error(err.response?.data.message);
     } finally {

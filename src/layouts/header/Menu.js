@@ -25,11 +25,11 @@ function Menu() {
           title='create'
           active={pathname === '/create'}
         />
-        <MenuItem
+        {/* <MenuItem
           page='/library'
           title='library'
           active={pathname === '/library'}
-        />
+        /> */}
         <MenuItem
           page='/contact'
           title='contact'

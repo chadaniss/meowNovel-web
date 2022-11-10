@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 
 function ChapterModal({ isShow, onClose, chapter, updateNovel }) {
   const chapterId = chapter.id;
-  console.log('chapterId', chapterId);
+  // console.log('chapterId', chapterId);
 
   const [updateChapter, setUpdateChapter] = useState({});
 

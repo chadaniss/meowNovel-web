@@ -1,7 +1,7 @@
 import axios from '../config/axios';
 
 export const createChapter = (novelId, input) =>
-  axios.post(`/chapters/edit/${novelId}`, input);
+  axios.post(`/chapters/create/${novelId}`, input);
 
 export const updateChapter = (chapterId, input) =>
   axios.put(`/chapters/edit/${chapterId}`, input);

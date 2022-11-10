@@ -147,7 +147,7 @@ function CreateForm() {
               <option value='DRAMA'>DRAMA</option>
               <option value='FANTASY'>FANTASY</option>
               <option value='ROMANCE'>ROMANCE</option>
-              <option value='THILLER'>THILLER</option>
+              <option value='THRILLER'>THILLER</option>
             </select>
 
             <div className='text-left my-3'>

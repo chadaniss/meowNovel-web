@@ -35,6 +35,9 @@ function EditPage() {
       stopLoading();
     }
   };
+  useEffect(() => {
+    console.log('updateNovel', updateNovel);
+  }, [updateNovel]);
 
   const fetchEditNovel = async () => {
     try {
@@ -62,9 +65,10 @@ function EditPage() {
       setImage(res.data.novel);
     };
     run();
+    console.log('useEffect2');
     fetchEditNovel();
     fetchNovel();
-  }, [image]);
+  }, []);
 
   const navigate = useNavigate();
 
