@@ -43,6 +43,7 @@ function ChapterContextProvider({ children }) {
   return (
     <ChapterContext.Provider
       value={{
+        setChapters,
         chapters,
         fetchChapter,
         createChapter

@@ -65,7 +65,6 @@ function EditPage() {
       setImage(res.data.novel);
     };
     run();
-    console.log('useEffect2');
     fetchEditNovel();
     fetchNovel();
   }, []);

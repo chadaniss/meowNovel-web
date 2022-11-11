@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 function MyNovel({
-  myNovel: { id, title, synopsis, bookCoverUrl, updatedAt, User }
+  myNovel: { id, title, synopsis, bookCoverUrl, genre, User }
 }) {
   const userName = User.userName;
   const navigate = useNavigate();
@@ -18,8 +18,11 @@ function MyNovel({
           alt=''
         />
         <div className='p-6 flex flex-col justify-start'>
+          <p className='text-red-wine font-bold text-xs mb-4'>{genre}</p>
           <h5 className='text-gray-900 text-xl font-medium mb-2'>{title}</h5>
-          <p className='text-gray-700 text-base mb-4'>{userName}</p>
+          <p className='text-gray-500 font-semibold text-base mb-4'>
+            {userName}
+          </p>
           <p className='text-gray-600 text-xs'>{synopsis}</p>
         </div>
       </div>

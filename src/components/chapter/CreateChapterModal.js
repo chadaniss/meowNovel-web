@@ -18,8 +18,6 @@ function CreateChapterModal({ updateNovel }) {
     content: ''
   });
 
-  console.log(chapters);
-
   const { createChapter } = useChapter();
 
   const { startLoading, stopLoading } = useLoading();
@@ -54,7 +52,8 @@ function CreateChapterModal({ updateNovel }) {
       <Modal show={isShow} onClose={onClose} size='6xl'>
         <Modal.Header>
           <input
-            className='w-full text-base leading-relaxed text-gray-500 dark:text-gray-400 border border-emerald-900'
+            className=' pl-3 w-full text-base leading-relaxed dark:text-gray-400 border border-emerald-900'
+            placeholder='title...'
             value={input.title}
             onChange={(e) => setInput({ ...input, title: e.target.value })}
           />
@@ -62,7 +61,8 @@ function CreateChapterModal({ updateNovel }) {
         <Modal.Body>
           <div className='space-y-6 h-96'>
             <textarea
-              className='w-full h-full resize-none text-base leading-relaxed text-gray-500 dark:text-gray-400'
+              className='w-full h-full resize-none text-base leading-relaxed dark:text-gray-400'
+              placeholder='content...'
               value={input.content}
               onChange={(e) =>
                 setInput({

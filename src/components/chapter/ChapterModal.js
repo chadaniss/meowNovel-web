@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 function ChapterModal({ isShow, onClose, chapter, updateNovel }) {
   const chapterId = chapter.id;
   // console.log('chapterId', chapterId);
+  const { chapters, setChapters } = useChapter();
 
   const [updateChapter, setUpdateChapter] = useState({});
 
@@ -43,7 +44,8 @@ function ChapterModal({ isShow, onClose, chapter, updateNovel }) {
     e.preventDefault();
     try {
       startLoading();
-      await chapterService.deleteChapter(chapterId);
+      const res = await chapterService.deleteChapter(chapterId);
+      setChapters(chapters.filter((chapter) => chapter.id !== chapterId));
     } catch (err) {
       console.log(err);
     } finally {
@@ -103,7 +105,7 @@ function ChapterModal({ isShow, onClose, chapter, updateNovel }) {
           <Modal.Header>{chapter.title}</Modal.Header>
           <Modal.Body>
             <div className='space-y-6'>
-              <p className='text-base leading-relaxed text-gray-500 dark:text-gray-400'>
+              <p className='text-base h-[500px] overflow-y-scroll leading-relaxed text-gray-500 dark:text-gray-400'>
                 {chapter.content}
               </p>
             </div>

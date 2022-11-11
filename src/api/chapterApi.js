@@ -12,4 +12,4 @@ export const getEditChapter = (chapterId) =>
 export const getChapters = (novelId) => axios.get(`/chapters/${novelId}`);
 
 export const deleteChapter = (chapterId) =>
-  axios.get(`/chapters/delete/${chapterId}`);
+  axios.delete(`/chapters/delete/${chapterId}`);
