@@ -9,17 +9,19 @@ const NovelContext = createContext();
 
 function NovelContextProvider({ children }) {
   const [novels, setNovels] = useState([]);
-  const [initialLoading, setInitialLoading] = useState(true);
+  const [initialLoading, setInitialLoading] = useState(false);
   const { user } = useAuth();
 
   const fetchNovel = async () => {
-    try {
-      const res = await novelService.getNovels(QUERY_NOVEL_FIND_ALL);
-      setNovels(res.data.novels);
-    } catch (err) {
-      toast.error(err.response?.data.message);
-    } finally {
-      setInitialLoading(false);
+    if (user) {
+      try {
+        const res = await novelService.getNovels(QUERY_NOVEL_FIND_ALL);
+        setNovels(res.data.novels);
+      } catch (err) {
+        toast.error(err.response?.data.message);
+      } finally {
+        setInitialLoading(false);
+      }
     }
   };
   useEffect(() => {
